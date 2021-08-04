@@ -124,6 +124,27 @@ def save_pics(pics: list):
         log.info(f"NO.{count} | {pic_path}, saved.")
 
 
+def save_pic(url, site, no_, name, pic_no):
+    """
+        保存一套专辑的图片
+    """
+    album_name = f"{site}--{no_}--{name}"
+    base_dir = cfg.pics_dir
+    curr_dir = path_join(base_dir, album_name)
+
+    if not exists(curr_dir):
+        makedirs(curr_dir)
+
+    pic_path = path_join(curr_dir, f"{album_name}--{pic_no}.jpg")
+
+    if not exists(pic_path):
+        pic_bytes = get_pic_content(url)
+        with open(pic_path, "wb") as f:
+            f.write(pic_bytes)
+
+    log.info(f"NO.{pic_no} | {pic_path}, saved.")
+
+
 def demo():
     pic_url = "https://pic.ku137.net/piccc/2021/allimg/210802/02153338-1-1Q2.jpg"
     pic_data = get_pic_content(pic_url)

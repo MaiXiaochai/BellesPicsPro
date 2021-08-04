@@ -11,10 +11,8 @@
             1）先解析出单套写真的图片地址
             2）然后下载图片
 """
-from re import findall
 from concurrent.futures import ThreadPoolExecutor
 
-from utils import log
 from workers import albums_parser, album_full_pics_parser, save_pics
 
 
@@ -30,13 +28,20 @@ def main():
     # 单个品类链接，这里用秀人网的链接做测试
     base_url = "https://www.ku137.net/b/9/list_9_{}.html"
 
-    with ThreadPoolExecutor(10) as pool:
-        for no in range(1, 10):
+    with ThreadPoolExecutor(15) as pool:
+
+        for no in range(1, 130):
+            # 单个写真集列表页
             url = base_url.format(no)
 
             for albums_no, albums_url in enumerate(albums_parser(url), 1):
-                print(albums_no, albums_url)
-                pool.submit(downloader, albums_url)
+                # 单个写真集页面
+                pic_data = album_full_pics_parser(albums_url)
+
+                for pic_no, pic_item in enumerate(pic_data, 1):
+                    # 图片首页
+                    args = [*pic_item, pic_no]
+                    pool.submit(downloader, args=args)
 
 
 if __name__ == '__main__':
