@@ -104,7 +104,7 @@ def save_pics(pics: list):
     """
         保存一套专辑的图片
     """
-    url, site, no_, name = pics[0]
+    _, site, no_, name = pics[0]
     album_name = f"{site}-{no_}-{name}"
     base_dir = cfg.pics_dir
     curr_dir = path_join(base_dir, album_name)
@@ -114,6 +114,7 @@ def save_pics(pics: list):
 
     for count, item in enumerate(pics, 1):
         pic_path = path_join(curr_dir, f"{album_name}-{count}.jpg")
+        url = item[0]
 
         if not exists(pic_path):
             pic_bytes = get_pic_content(url)

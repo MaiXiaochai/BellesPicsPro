@@ -27,7 +27,6 @@ def main():
 
         for url in albums_parser(url):
             data = album_full_pics_parser(url)
-            print(data)
             save_pics(data)
 
         if no == 1:
