@@ -21,7 +21,7 @@ class BaseConfig:
     db_uri = f"mysql+pymysql://spider:Spider666123~@192.168.3.2/videos?charset=utf8"
 
     # 连接池大小
-    pool_size = 5
+    pool_size = 15
 
     # 超过连接池的大小外最多创建的连接
     max_overflow = 10
@@ -41,11 +41,6 @@ class BaseConfig:
 
     # 图片文件保存位置
     pics_dir = path_join(base_dir, "pics")
-
-    # # 线程相关设置
-    parser_worker = 20  # 解析线程数
-    check_worker = 10  # 验证线程数
-    save_worker = 10  # 下载线程数
 
     parser_delay = 5  # 解析线程的延迟时间，防止反爬虫, 单位:秒
 
