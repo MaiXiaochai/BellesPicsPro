@@ -56,7 +56,6 @@ def multi_albums():
             url = base_url.format(no)
 
             for albums_no, albums_url in enumerate(albums_parser(url), 1):
-                print(albums_no, albums_url)
                 pool.submit(downloader, albums_url)
 
 
